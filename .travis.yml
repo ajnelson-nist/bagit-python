@@ -23,7 +23,9 @@ install:
     - pip install --upgrade pip
     - pip install coveralls coverage
 
-script: coverage run --include=bagit.py setup.py test
+script: 
+    - coverage run --include=bagit.py setup.py test
+    - for x in `seq 1 8` ; do ./test-softlink.sh $x || travis_terminate $? ; done
 
 after_success:
     coveralls
